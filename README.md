@@ -1,61 +1,59 @@
-# TD-RPG Game (Working Title)
+# TD-RPG Game
 
-## 🧠 About the Project
+## 🧠 About
 
-This is a **hybrid game combining Tower Defense, RTS, and Action RPG mechanics**.
+**TD-RPG Game** is a hybrid of **Tower Defense, RTS, and Action RPG** mechanics.
 
-The player controls a hero in a top-down 3D world, gathering resources, building defenses, and surviving waves of enemies that attack the base at night.
+The player controls a hero in a top-down 3D world, gathers resources, builds defenses, and protects a base from waves of enemies that attack at night.
 
-The core idea of the game is **time management under pressure** — the player can never do everything and must constantly choose between safety and risk.
+The core focus of the game is **time management and decision-making under pressure**.
 
 ---
 
 ## 🔄 Core Gameplay Loop
 
-1. **Day Phase (Preparation)**
+1. **Day Phase**
 
    * Explore the map
-   * Gather resources (wood, stone, etc.)
-   * Build and upgrade defenses
+   * Gather resources (wood, stone)
+   * Build and upgrade structures
    * Take risks to obtain rare resources
-   * Enter dungeons or dangerous zones
+   * Visit dangerous areas or dungeons
 
-2. **Evening (Warning Phase)**
+2. **Evening**
 
    * Return to base
+   * Prepare defenses
    * Finish construction
-   * Prepare for incoming threats
 
-3. **Night Phase (Defense)**
+3. **Night Phase**
 
-   * Waves of enemies attack the base
-   * Player supports defenses with the hero
-   * Critical decisions under pressure
+   * Enemy waves attack the base
+   * Player supports defense with the hero
+   * Survive under pressure
 
 4. **Repeat**
 
-   * Recover from damage
-   * Expand base
-   * Take bigger risks for long-term power
+   * Recover, expand, and optimize your strategy
 
 ---
 
 ## 🎯 Goal
 
-Each level can be completed by:
+Complete the level by:
 
-* Surviving a set number of waves
+* Surviving all enemy waves
   **or**
-* Collecting special resources and **sealing the portal (gate)** where enemies spawn
+* Collecting special resources and **sealing the enemy gate**
 
-If the player delays too long, a final powerful wave (Gatekeepers) will attack the base.
+If the player delays too long, a final strong wave will attack the base.
 
 ---
 
 ## ⚔️ Player Role
 
-* The hero is **not a one-man army**
-* The base and towers are essential for survival
+* The hero is **not overpowered alone**
+* Towers and base defense are essential
 * The hero is responsible for:
 
   * Resource gathering
@@ -67,111 +65,83 @@ If the player delays too long, a final powerful wave (Gatekeepers) will attack t
 
 ## 🏰 Base & Building
 
-* Build towers and defensive structures
+* Build defensive towers
 * Construct resource-generating buildings
-* Expand base by capturing new areas
-* Some zones are expendable, others are critical
+* Expand your base into new areas
+* Protect critical zones (resource production)
 
 ---
 
-## 🌍 World Features
+## 🌍 World
 
-* Semi-open map with different zones:
-
-  * Safe areas
-  * Resource zones
-  * High-risk zones
-  * Points of interest (e.g. dungeons)
-
-* Day/Night cycle affects gameplay:
-
-  * Day = safer exploration
-  * Night = high danger and enemy waves
-
-* The world reacts to player actions:
-
-  * Over-harvesting resources may trigger events
-  * Neutral creatures defend their territory
+* Semi-open level structure
+* Different zones with varying risk levels
+* Points of interest (future: dungeons, events)
+* Day/Night cycle changes gameplay
 
 ---
 
 ## 👾 Enemies
 
-* Multiple enemy types:
+Planned enemy types:
 
-  * Basic attackers
-  * Fast units
-  * Structure-focused enemies
-  * Elite enemies and mini-bosses
-
-* Final enemies (Gatekeepers) appear:
-
-  * When attempting to seal the portal
-  * Or during the last wave
+* Basic melee units
+* Fast units
+* Structure-targeting enemies
+* Elite enemies / mini-bosses
 
 ---
 
-## 🧩 Key Features (Planned)
+## 🚧 Current State
 
-* Time-based gameplay with constant prioritization
-* Hybrid combat: Hero + Tower Defense
-* Resource-driven progression
-* Risk vs reward exploration
-* Day/Night system
-* Basic dungeon system
-* Equipment and talents system (light RPG elements)
-
----
-
-## 🚧 Current Development Stage
-
-Early prototype.
+Project is in **early development / prototype stage**.
 
 Current focus:
 
 * Player movement and combat
-* Resource gathering
-* Basic building system
-* First enemy AI
+* Resource gathering system
+* Basic building mechanics
+* First enemy behavior
 * Core gameplay loop
 
 ---
 
-## 🛠 Tech Stack
+## 🛠 Tech
 
-* Engine: Unity
-* Language: C#
-* Version Control: Git / GitHub
+* **Engine:** Unity
+* **Language:** C#
+* **Version Control:** GitHub
 
 ---
 
-## 📌 Project Vision
+## 📌 Vision
 
-The goal is to create a game where the player constantly feels:
+The player should constantly feel:
 
-> “I don’t have enough time to do everything — I must choose wisely.”
+> “I don’t have enough time to do everything.”
 
-The game should reward:
+The game is built around:
 
-* Smart decision-making
-* Risk-taking
-* Efficient time management
+* prioritization
+* risk vs reward
+* surviving chaos through smart decisions
+
+---
+
+## 📎 TODO (Prototype Goals)
+
+* [ ] Player controller (movement + attack)
+* [ ] Camera system
+* [ ] Resource gathering (wood)
+* [ ] Basic tower
+* [ ] First enemy (path + attack)
+* [ ] Wave system
+* [ ] Day/Night cycle
 
 ---
 
 ## ⚠️ Notes
 
-* This project is in active development
-* Systems and mechanics may change significantly
-* Focus is currently on gameplay, not visuals
-
----
-
-## 📎 TODO (Short Term)
-
-* [ ] Player controller (movement + combat)
-* [ ] Resource gathering system
-* [ ] Basic tower
-* [ ] First enemy type
-* [ ] Wave system
-* [ ] Day/Night cycle
+* This is a solo project
+* Systems are subject to change
+* Focus is on gameplay first, visuals later
