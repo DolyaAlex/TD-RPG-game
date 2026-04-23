@@ -7,7 +7,7 @@
             "id": "28bb6d93-3721-4134-be93-6613a2da8ee4",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Attack",
                     "type": "Button",
                     "id": "4d0b1d8c-3b13-4ce1-8971-5058a7011b6d",
                     "expectedControlType": "",
@@ -29,11 +29,22 @@
                 {
                     "name": "",
                     "id": "41842f45-d5a6-446d-b6cd-0bb3eee78203",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fcab1676-abe0-477b-8244-23ac42c9e366",
                     "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

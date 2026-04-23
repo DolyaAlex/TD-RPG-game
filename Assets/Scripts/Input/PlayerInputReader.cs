@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerInputReader : MonoBehaviour
 {
     public Vector2 MoveInput { get; private set; }
+    public bool AttackPressed { get; private set; }
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -13,5 +14,18 @@ public class PlayerInputReader : MonoBehaviour
         {
             MoveInput = Vector2.zero;
         }
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            AttackPressed = true;
+        }
+    }
+
+    public void ConsumeAttack()
+    {
+        AttackPressed = false;
     }
 }
