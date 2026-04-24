@@ -161,6 +161,8 @@ GameObject:
   - component: {fileID: 3008844986282507325}
   - component: {fileID: 5853686728765003284}
   - component: {fileID: 7751972900714080147}
+  - component: {fileID: 4745636083286302950}
+  - component: {fileID: 6878352578009761719}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -356,3 +358,37 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   maxMouseRayDistance: 1000
+--- !u!114 &4745636083286302950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6582237052637552250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 733b99ed403de534f8d2f4f4aea498f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 5
+--- !u!114 &6878352578009761719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6582237052637552250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1c1070674827a146aef7e09a4d1a76a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRespawn
+  health: {fileID: 4745636083286302950}
+  respawnPoint: {fileID: 0}
+  inputReader: {fileID: 3008844986282507325}
+  playerMover: {fileID: 8724626124495865093}
+  playerRotator: {fileID: 2734689180778507100}
+  playerAttack: {fileID: 7751972900714080147}
+  characterController: {fileID: 852116396998762391}
+  modelRoot: {fileID: 4414208826667884096}
+  respawnDelay: 10

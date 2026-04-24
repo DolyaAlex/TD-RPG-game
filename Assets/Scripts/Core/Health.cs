@@ -8,8 +8,7 @@ public class Health : MonoBehaviour, IDamageable
 
     public int MaxHealth => maxHealth;
     public int CurrentHealth { get; private set; }
-
-    public bool IsDead => CurrentHealth <= 0;
+    public bool IsDead => hasDied;
 
     public event Action<int, int> OnHealthChanged;
     public event Action OnDied;
@@ -58,6 +57,13 @@ public class Health : MonoBehaviour, IDamageable
         if (CurrentHealth > maxHealth)
             CurrentHealth = maxHealth;
 
+        OnHealthChanged?.Invoke(CurrentHealth, maxHealth);
+    }
+
+    public void RestoreFullHealth()
+    {
+        hasDied = false;
+        CurrentHealth = maxHealth;
         OnHealthChanged?.Invoke(CurrentHealth, maxHealth);
     }
 
