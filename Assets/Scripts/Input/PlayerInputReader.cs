@@ -4,7 +4,9 @@ using UnityEngine.InputSystem;
 public class PlayerInputReader : MonoBehaviour
 {
     public Vector2 MoveInput { get; private set; }
-    public bool AttackPressed { get; private set; }
+
+    public bool AttackPressedThisFrame { get; private set; }
+    public bool InteractPressedThisFrame { get; private set; }
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -20,12 +22,21 @@ public class PlayerInputReader : MonoBehaviour
     {
         if (context.performed)
         {
-            AttackPressed = true;
+            AttackPressedThisFrame = true;
         }
     }
 
-    public void ConsumeAttack()
+    public void OnInteract(InputAction.CallbackContext context)
     {
-        AttackPressed = false;
+        if (context.performed)
+        {
+            InteractPressedThisFrame = true;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        AttackPressedThisFrame = false;
+        InteractPressedThisFrame = false;
     }
 }

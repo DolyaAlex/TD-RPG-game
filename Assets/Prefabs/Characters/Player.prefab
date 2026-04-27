@@ -163,6 +163,7 @@ GameObject:
   - component: {fileID: 7751972900714080147}
   - component: {fileID: 4745636083286302950}
   - component: {fileID: 6878352578009761719}
+  - component: {fileID: 2501980041040370349}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -240,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f552b761969384d83f4878336ea3eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRotator
-  playerMover: {fileID: 8724626124495865093}
+  mover: {fileID: 0}
   playerAttack: {fileID: 7751972900714080147}
   rotationSpeed: 12
 --- !u!114 &9145697536395307713
@@ -300,6 +301,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: cdbf26f5-dbee-4726-8779-1d868069a848
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3008844986282507325}
+        m_TargetAssemblyTypeName: PlayerInputReader, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 22200f19-084c-4c71-aab9-5a7983904414
+    m_ActionName: 'Player/Interact[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -354,10 +371,7 @@ MonoBehaviour:
   hittableLayers:
     serializedVersion: 2
     m_Bits: 192
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  maxMouseRayDistance: 1000
+  attackRotationSpeed: 20
 --- !u!114 &4745636083286302950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,3 +406,20 @@ MonoBehaviour:
   characterController: {fileID: 852116396998762391}
   modelRoot: {fileID: 4414208826667884096}
   respawnDelay: 10
+--- !u!114 &2501980041040370349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6582237052637552250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 451fdcdf73919274a8a0108e332d0473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
+  inputReader: {fileID: 3008844986282507325}
+  interactRadius: 2
+  interactableLayers:
+    serializedVersion: 2
+    m_Bits: 2048

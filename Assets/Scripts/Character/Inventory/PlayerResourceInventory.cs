@@ -18,15 +18,46 @@ public class PlayerResourceInventory : MonoBehaviour
             case ResourceType.Wood:
                 wood += amount;
                 break;
+
             case ResourceType.Stone:
                 stone += amount;
                 break;
+
             case ResourceType.Special:
                 special += amount;
                 break;
         }
 
         Debug.Log($"Added {amount} {type}. Total now: {GetAmount(type)}");
+    }
+
+    public bool HasEnough(ResourceType type, int amount)
+    {
+        return GetAmount(type) >= amount;
+    }
+
+    public bool SpendResource(ResourceType type, int amount)
+    {
+        if (!HasEnough(type, amount))
+            return false;
+
+        switch (type)
+        {
+            case ResourceType.Wood:
+                wood -= amount;
+                break;
+
+            case ResourceType.Stone:
+                stone -= amount;
+                break;
+
+            case ResourceType.Special:
+                special -= amount;
+                break;
+        }
+
+        Debug.Log($"Spent {amount} {type}. Total now: {GetAmount(type)}");
+        return true;
     }
 
     public int GetAmount(ResourceType type)
