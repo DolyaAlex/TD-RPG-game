@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("Enemy Setup")]
+    [Header("Default Enemy Setup")]
     [SerializeField] private GameObject enemyPrefab;
 
     [Header("Spawn Input")]
@@ -46,15 +46,14 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnEnemies(int count)
     {
-        if (enemyPrefab == null)
+        SpawnEnemies(enemyPrefab, count);
+    }
+
+    public void SpawnEnemies(GameObject prefab, int count)
+    {
+        if (prefab == null)
         {
             Debug.LogWarning("EnemySpawner: Enemy prefab is not assigned.");
-            return;
-        }
-
-        if (spawnPoints == null || spawnPoints.Length == 0)
-        {
-            Debug.LogWarning("EnemySpawner: No spawn points assigned.");
             return;
         }
 
@@ -62,26 +61,51 @@ public class EnemySpawner : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            Transform spawnCenter = GetSpawnPointForEnemy(i);
+            GameObject enemy = SpawnEnemy(prefab, i);
 
-            if (spawnCenter == null)
+            if (enemy != null)
             {
-                Debug.LogWarning("EnemySpawner: Spawn point is null.");
-                continue;
-            }
-
-            if (TryGetSpawnPosition(spawnCenter.position, out Vector3 spawnPosition))
-            {
-                Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
                 spawned++;
-            }
-            else
-            {
-                Debug.LogWarning($"EnemySpawner: Could not find valid spawn point for enemy #{i + 1} near {spawnCenter.name}.");
             }
         }
 
         Debug.Log($"EnemySpawner: Spawned {spawned}/{count} enemies.");
+    }
+
+    public GameObject SpawnEnemy(GameObject prefab)
+    {
+        return SpawnEnemy(prefab, 0);
+    }
+
+    public GameObject SpawnEnemy(GameObject prefab, int enemyIndex)
+    {
+        if (prefab == null)
+        {
+            Debug.LogWarning("EnemySpawner: Enemy prefab is not assigned.");
+            return null;
+        }
+
+        if (spawnPoints == null || spawnPoints.Length == 0)
+        {
+            Debug.LogWarning("EnemySpawner: No spawn points assigned.");
+            return null;
+        }
+
+        Transform spawnCenter = GetSpawnPointForEnemy(enemyIndex);
+
+        if (spawnCenter == null)
+        {
+            Debug.LogWarning("EnemySpawner: Spawn point is null.");
+            return null;
+        }
+
+        if (!TryGetSpawnPosition(spawnCenter.position, out Vector3 spawnPosition))
+        {
+            Debug.LogWarning($"EnemySpawner: Could not find valid spawn point near {spawnCenter.name}.");
+            return null;
+        }
+
+        return Instantiate(prefab, spawnPosition, Quaternion.identity);
     }
 
     private Transform GetSpawnPointForEnemy(int enemyIndex)
@@ -111,9 +135,12 @@ public class EnemySpawner : MonoBehaviour
             }
 
             direction.Normalize();
+
             float distance = Random.Range(minSpawnRadius, maxSpawnRadius);
 
-            Vector3 candidate = centerPosition + new Vector3(direction.x, 0f, direction.y) * distance;
+            Vector3 candidate =
+                centerPosition +
+                new Vector3(direction.x, 0f, direction.y) * distance;
 
             if (!TrySampleOnNavMesh(candidate, out Vector3 navMeshPosition))
                 continue;
@@ -131,7 +158,12 @@ public class EnemySpawner : MonoBehaviour
 
     private bool TrySampleOnNavMesh(Vector3 candidate, out Vector3 navMeshPosition)
     {
-        if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, navMeshSampleDistance, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(
+                candidate,
+                out NavMeshHit hit,
+                navMeshSampleDistance,
+                NavMesh.AllAreas
+            ))
         {
             navMeshPosition = hit.position;
             return true;

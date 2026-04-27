@@ -220,6 +220,7 @@ MonoBehaviour:
   moveSpeed: 3.5
   rotationSpeed: 12
   destinationUpdateThreshold: 0.25
+  navMeshSampleDistance: 0.75
 --- !u!1 &8514612772784318310
 GameObject:
   m_ObjectHideFlags: 0

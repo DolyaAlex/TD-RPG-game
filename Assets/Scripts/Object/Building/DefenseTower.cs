@@ -14,6 +14,10 @@ public class DefenseTower : MonoBehaviour
     [SerializeField] private bool rotateToTarget = true;
     [SerializeField] private float rotationSpeed = 10f;
 
+    [Header("Flat Range Check")]
+    [SerializeField] private float verticalSearchHalfHeight = 50f;
+    [SerializeField] private bool drawFlatRangeGizmo = true;
+
     private float lastAttackTime = -999f;
     private float lastTargetRefreshTime = -999f;
 
@@ -40,7 +44,9 @@ public class DefenseTower : MonoBehaviour
         if (Time.time >= lastAttackTime + attackCooldown)
         {
             lastAttackTime = Time.time;
+
             currentTarget.TakeDamage(damage);
+
             Debug.Log($"{name} attacked {currentTarget.name} for {damage} damage.");
         }
     }
@@ -58,14 +64,15 @@ public class DefenseTower : MonoBehaviour
     {
         Vector3 origin = GetOriginPosition();
 
-        Collider[] hits = Physics.OverlapSphere(
+        Collider[] hits = Physics.OverlapBox(
             origin,
-            attackRange,
+            new Vector3(attackRange, verticalSearchHalfHeight, attackRange),
+            Quaternion.identity,
             enemyLayers,
             QueryTriggerInteraction.Collide
         );
 
-        Debug.Log($"{name}: targets in range = {hits.Length}");
+        Debug.Log($"{name}: possible targets in vertical search box = {hits.Length}");
 
         Health closestTarget = null;
         float closestDistanceSqr = float.MaxValue;
@@ -77,12 +84,12 @@ public class DefenseTower : MonoBehaviour
             if (health == null || health.IsDead)
                 continue;
 
-            Vector3 targetPoint = hit.ClosestPoint(origin);
+            Vector3 targetPoint = GetFlatTargetPoint(hit, origin);
 
-            origin.y = 0f;
-            targetPoint.y = 0f;
+            float distanceSqr = GetFlatDistanceSqr(origin, targetPoint);
 
-            float distanceSqr = (targetPoint - origin).sqrMagnitude;
+            if (distanceSqr > attackRange * attackRange)
+                continue;
 
             if (distanceSqr < closestDistanceSqr)
             {
@@ -100,17 +107,32 @@ public class DefenseTower : MonoBehaviour
             return false;
 
         Vector3 origin = GetOriginPosition();
-        Collider targetCollider = target.GetComponent<Collider>();
+
+        Collider targetCollider = target.GetComponentInChildren<Collider>();
 
         Vector3 targetPoint = targetCollider != null
-            ? targetCollider.ClosestPoint(origin)
+            ? GetFlatTargetPoint(targetCollider, origin)
             : target.transform.position;
 
-        origin.y = 0f;
-        targetPoint.y = 0f;
+        float distanceSqr = GetFlatDistanceSqr(origin, targetPoint);
 
-        float distance = Vector3.Distance(origin, targetPoint);
-        return distance <= attackRange;
+        return distanceSqr <= attackRange * attackRange;
+    }
+
+    private Vector3 GetFlatTargetPoint(Collider targetCollider, Vector3 origin)
+    {
+        Vector3 flatOrigin = origin;
+        flatOrigin.y = targetCollider.bounds.center.y;
+
+        return targetCollider.ClosestPoint(flatOrigin);
+    }
+
+    private float GetFlatDistanceSqr(Vector3 a, Vector3 b)
+    {
+        a.y = 0f;
+        b.y = 0f;
+
+        return (a - b).sqrMagnitude;
     }
 
     private Vector3 GetOriginPosition()
@@ -127,6 +149,7 @@ public class DefenseTower : MonoBehaviour
             return;
 
         Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+
         transform.rotation = Quaternion.Slerp(
             transform.rotation,
             targetRotation,
@@ -136,7 +159,39 @@ public class DefenseTower : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        if (!drawFlatRangeGizmo)
+            return;
+
+        Vector3 origin = GetOriginPosition();
+
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(GetOriginPosition(), attackRange);
+        DrawFlatCircle(origin, attackRange);
+
+        Gizmos.color = new Color(0f, 0.5f, 1f, 0.25f);
+        Gizmos.DrawWireCube(
+            origin,
+            new Vector3(attackRange * 2f, verticalSearchHalfHeight * 2f, attackRange * 2f)
+        );
+    }
+
+    private void DrawFlatCircle(Vector3 center, float radius)
+    {
+        const int segments = 64;
+
+        Vector3 previousPoint = center + new Vector3(radius, 0f, 0f);
+
+        for (int i = 1; i <= segments; i++)
+        {
+            float angle = i / (float)segments * Mathf.PI * 2f;
+
+            Vector3 nextPoint = center + new Vector3(
+                Mathf.Cos(angle) * radius,
+                0f,
+                Mathf.Sin(angle) * radius
+            );
+
+            Gizmos.DrawLine(previousPoint, nextPoint);
+            previousPoint = nextPoint;
+        }
     }
 }

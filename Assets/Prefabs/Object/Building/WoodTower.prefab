@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 450597125213664291}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 9002207738017520086}
   - component: {fileID: 2686309490190818338}
   - component: {fileID: 2122367621016667427}
+  - component: {fileID: -7721421774656578449}
   m_Layer: 0
   m_Name: WoodTower
   m_TagString: Untagged
@@ -169,6 +170,8 @@ MonoBehaviour:
   targetRefreshInterval: 0.25
   rotateToTarget: 1
   rotationSpeed: 10
+  verticalSearchHalfHeight: 50
+  drawFlatRangeGizmo: 1
 --- !u!114 &2122367621016667427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +185,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 10
+--- !u!208 &-7721421774656578449
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4673701357091551775}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.4, y: 0.5, z: 0.4}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &6711423356112740593
 GameObject:
   m_ObjectHideFlags: 0
